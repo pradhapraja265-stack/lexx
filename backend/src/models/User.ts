@@ -104,4 +104,10 @@ userSchema.methods.updatePreferences = function(preferences: Partial<UserPrefere
   return this.save();
 };
 
-export const User = model<IUser>('User', userSchema);
+interface UserModel extends IUser, Document {}
+interface UserModelStatics extends Model<UserModel> {
+  findByFirebaseUid(firebaseUid: string): Promise<UserModel | null>;
+  findByEmail(email: string): Promise<UserModel | null>;
+}
+
+export const User = model<IUser, UserModelStatics>('User', userSchema);
