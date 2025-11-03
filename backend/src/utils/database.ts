@@ -101,7 +101,9 @@ class Database {
       }
 
       // Ping the database
-      await mongoose.connection.db.admin().ping();
+      if (mongoose.connection.db) {
+        await mongoose.connection.db.admin().ping();
+      }
       return { status: 'connected', state: this.getConnectionState() };
     } catch (error) {
       console.error('Database health check failed:', error);
