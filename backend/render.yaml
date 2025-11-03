@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: lexxi-backend
+    runtime: node
+    plan: free
+    buildCommand: "npm run build"
+    startCommand: "npm start"
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: MONGODB_URI
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: FRONTEND_URL
+        sync: false
+      - key: RATE_LIMIT_WINDOW_MS
+        value: 60000
+      - key: RATE_LIMIT_MAX_REQUESTS
+        value: 100
+      - key: LOG_LEVEL
+        value: info
+
+databases:
+  - name: lexxi-mongodb
+    databaseName: lexifix
+    user: lexxi_user
