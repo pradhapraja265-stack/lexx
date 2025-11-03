@@ -184,4 +184,10 @@ chatSessionSchema.virtual('lastMessage').get(function() {
 chatSessionSchema.set('toJSON', { virtuals: true });
 chatSessionSchema.set('toObject', { virtuals: true });
 
-export const ChatSession = model<IChatSession>('ChatSession', chatSessionSchema);
+interface ChatSessionModel extends IChatSession, Document {}
+interface ChatSessionModelStatics extends Model<ChatSessionModel> {
+  findByUserId(userId: string, limit?: number, skip?: number): Promise<ChatSessionModel[]>;
+  findByIdAndUserId(sessionId: string, userId: string): Promise<ChatSessionModel | null>;
+}
+
+export const ChatSession = model<IChatSession, ChatSessionModelStatics>('ChatSession', chatSessionSchema);
