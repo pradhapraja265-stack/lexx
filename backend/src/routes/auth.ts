@@ -1,9 +1,9 @@
-import { Router } from 'express';
+import { Router, Request, Response } from 'express';
 import { User } from '../models/User';
 import { authenticateToken, verifyFirebaseToken, generateToken } from '../middleware/auth';
 import { validate, schemas } from '../middleware/validation';
 import { asyncHandler } from '../middleware/errorHandler';
-import { AuthRequest, AuthResponse } from '../types';
+import { AuthRequest, AuthResponse, AuthenticatedRequest } from '../types';
 
 const router = Router();
 
