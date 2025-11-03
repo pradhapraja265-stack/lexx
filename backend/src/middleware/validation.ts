@@ -61,6 +61,19 @@ export const schemas = {
     }),
   }),
 
+  createMessageDto: Joi.object({
+    type: Joi.string().valid('user', 'ai').required(),
+    content: Joi.string().required().trim(),
+    originalText: Joi.string().optional().trim(),
+    refinedText: Joi.string().optional().trim(),
+    tone: Joi.string().valid('formal', 'casual', 'friendly', 'professional').optional(),
+    metadata: Joi.object({
+      model: Joi.string().required(),
+      tokensUsed: Joi.number().required(),
+      processingTime: Joi.number().required(),
+    }).optional(),
+  }),
+
   chatSessionId: Joi.object({
     sessionId: Joi.string().pattern(/^[0-9a-fA-F]{24}$/).required().messages({
       'string.pattern.base': 'Invalid session ID format',
