@@ -184,4 +184,4 @@ Remember: Your role is to refine the given text to match the requested tone, not
   }
 }
 
-export const openAIService = OpenAIService.getInstance();
+// Remove singleton export to avoid initialization during module import
