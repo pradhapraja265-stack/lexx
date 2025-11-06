@@ -15,7 +15,7 @@ const chatSessions = new Map<string, any>();
 const users = new Map<string, any>();
 
 // Initialize OpenAI service
-const openaiService = new OpenAIService();
+const openaiService = OpenAIService.getInstance();
 
 // Security middleware
 app.use(helmet({
