@@ -151,6 +151,13 @@ Remember: Your role is to refine the given text to match the requested tone, not
   }
 
   public async healthCheck(): Promise<{ status: string; model: string }> {
+    if (!this.openai) {
+      return {
+        status: 'demo-mode',
+        model: 'demo-mode',
+      };
+    }
+
     try {
       // Simple test request to check if OpenAI is accessible
       const response = await this.openai.models.list();
