@@ -9,8 +9,11 @@ export class OpenAIService {
   private readonly temperature = 0.3;
 
   private constructor() {
-    if (!process.env.OPENAI_API_KEY) {
-      throw new Error('OpenAI API key is required');
+    const apiKey = process.env.OPENAI_API_KEY;
+    if (!apiKey || apiKey === 'your_openai_api_key_here') {
+      console.warn('OpenAI API key not configured. Using demo mode.');
+      this.openai = null;
+      return;
     }
 
     this.openai = new OpenAI({
