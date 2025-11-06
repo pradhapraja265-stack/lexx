@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { ThemeProvider } from './hooks/useTheme';
+import { ThemeProvider } from './hooks/useThemeSimple';
 import { SimpleHomePage } from './pages/SimpleHomePage';
 import './index.css';
 
