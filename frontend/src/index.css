@@ -99,40 +99,66 @@
 
 @layer components {
   .btn-primary {
-    @apply relative bg-gradient-to-r from-primary-blue to-blue-600 hover:from-blue-600 hover:to-primary-blue text-white px-6 py-3 rounded-xl font-medium transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 overflow-hidden;
+    @apply relative bg-gradient-to-r from-primary-blue via-primary-purple to-primary-indigo hover:from-primary-indigo hover:via-primary-blue hover:to-primary-purple text-white px-6 py-3 rounded-xl font-medium transition-all duration-500 shadow-lg hover:shadow-2xl transform hover:scale-105 hover:-translate-y-1 overflow-hidden bg-size-200 bg-pos-0 hover:bg-pos-100;
   }
 
   .btn-primary::before {
     content: '';
-    @apply absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 hover:opacity-20 transform -translate-x-full hover:translate-x-full transition-all duration-700;
+    @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-0 hover:opacity-100 transform -translate-x-full hover:translate-x-full transition-all duration-700;
+  }
+
+  .btn-primary::after {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-t from-transparent to-white/20 opacity-0 hover:opacity-100 transition-all duration-500;
   }
 
   .btn-secondary {
-    @apply bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm hover:bg-white dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100 px-6 py-3 rounded-xl font-medium transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105 border border-gray-200 dark:border-gray-700;
+    @apply bg-white/90 dark:bg-gray-800/90 backdrop-blur-md hover:bg-white dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100 px-6 py-3 rounded-xl font-medium transition-all duration-300 shadow-lg hover:shadow-2xl transform hover:scale-105 hover:-translate-y-1 border border-gray-200/50 dark:border-gray-700/50 hover:border-primary-blue/50 dark:hover:border-primary-purple/50;
   }
 
   .btn-gradient {
-    @apply bg-gradient-to-r from-gradient-start via-primary-purple to-gradient-end hover:from-primary-purple hover:via-gradient-end hover:to-gradient-start text-white px-6 py-3 rounded-xl font-medium transition-all duration-500 shadow-glow hover:shadow-xl transform hover:scale-105 bg-size-200 bg-pos-0 hover:bg-pos-100%;
+    @apply bg-gradient-to-r from-gradient-start via-primary-purple to-gradient-end hover:from-primary-purple hover:via-gradient-end hover:to-gradient-start text-white px-6 py-3 rounded-xl font-medium transition-all duration-700 shadow-glow hover:shadow-2xl transform hover:scale-110 hover:-translate-y-2 bg-size-200 bg-pos-0 hover:bg-pos-100;
+  }
+
+  .btn-gradient::before {
+    content: '';
+    @apply absolute inset-0 rounded-xl bg-gradient-to-r from-transparent via-white/40 to-transparent opacity-0 hover:opacity-100 transform scale-x-0 hover:scale-x-100 transition-all duration-700;
   }
 
   .message-bubble {
-    @apply max-w-2xl px-4 py-3 rounded-2xl shadow-md transition-all duration-300 hover:shadow-lg;
+    @apply max-w-2xl px-4 py-3 rounded-2xl shadow-lg transition-all duration-500 hover:shadow-2xl hover:-translate-y-1;
   }
 
   .user-message {
-    @apply bg-gradient-to-r from-primary-blue to-blue-600 text-white ml-auto transform transition-all duration-300 hover:scale-105;
+    @apply bg-gradient-to-r from-primary-blue via-primary-purple to-primary-indigo text-white ml-auto transform transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:-translate-y-1 relative overflow-hidden;
+  }
+
+  .user-message::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-50;
+    animation: shimmerMessage 3s ease-in-out infinite;
   }
 
   .ai-message {
-    @apply bg-white/90 dark:bg-gray-800/90 backdrop-blur-md text-gray-900 dark:text-gray-100 border border-gray-200/50 dark:border-gray-700/50 transform transition-all duration-300 hover:scale-102;
+    @apply bg-white/95 dark:bg-gray-800/95 backdrop-blur-lg text-gray-900 dark:text-gray-100 border border-gray-200/50 dark:border-gray-700/50 transform transition-all duration-500 hover:scale-102 hover:shadow-xl hover:-translate-y-0.5 relative;
+  }
+
+  .ai-message::before {
+    content: '';
+    @apply absolute inset-0 rounded-2xl bg-gradient-to-r from-primary-blue/5 via-primary-purple/5 to-primary-indigo/5 opacity-0 hover:opacity-100 transition-all duration-500;
   }
 
   .glass-card {
-    @apply bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg border border-white/20 dark:border-gray-700/20 rounded-2xl shadow-xl;
+    @apply bg-white/85 dark:bg-gray-800/85 backdrop-blur-xl border border-white/30 dark:border-gray-700/30 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-[1.02];
   }
 
   .gradient-text {
     @apply bg-gradient-to-r from-primary-blue via-primary-purple to-primary-indigo bg-clip-text text-transparent bg-size-200 bg-pos-0 animate-gradient;
+  }
+
+  .gradient-text-slow {
+    @apply bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent bg-size-300 bg-pos-0;
+    animation: gradient 8s ease infinite;
   }
 
   .loading-dots {
@@ -140,7 +166,7 @@
   }
 
   .loading-dots > div {
-    @apply w-2 h-2 bg-current rounded-full animate-bounce;
+    @apply w-2 h-2 bg-gradient-to-r from-primary-blue to-primary-purple rounded-full animate-bounce;
   }
 
   .loading-dots > div:nth-child(1) {
@@ -161,19 +187,35 @@
 
   .typing-indicator::after {
     content: '';
-    @apply w-1 h-4 bg-current inline-block animate-blink border-r-2 border-current;
+    @apply w-1 h-4 bg-gradient-to-r from-primary-blue to-primary-purple inline-block animate-blink border-r-2 border-current;
   }
 
   .hover-lift {
-    @apply transition-transform duration-300 hover:-translate-y-1;
+    @apply transition-all duration-300 hover:-translate-y-2 hover:shadow-xl;
   }
 
   .card-hover {
-    @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-2;
+    @apply transition-all duration-300 hover:shadow-2xl hover:-translate-y-3 hover:scale-105;
   }
 
   .pulse-glow {
     @apply animate-pulse shadow-glow;
+  }
+
+  .pulse-slow {
+    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .bounce-gentle {
+    animation: bounceGentle 3s ease-in-out infinite;
+  }
+
+  .rotate-slow {
+    animation: rotate 20s linear infinite;
+  }
+
+  .wiggle {
+    animation: wiggle 1s ease-in-out infinite;
   }
 
   .slide-up-enter {
@@ -182,6 +224,68 @@
 
   .fade-in-enter {
     @apply animate-fade-in;
+  }
+
+  .scale-in-enter {
+    @apply animate-scale-in;
+  }
+
+  .neon-border {
+    @apply relative;
+  }
+
+  .neon-border::before {
+    content: '';
+    @apply absolute inset-0 rounded-2xl bg-gradient-to-r from-primary-blue via-primary-purple to-primary-indigo p-[2px] mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    animation: neonGlow 2s ease-in-out infinite alternate;
+  }
+
+  .shimmer-text {
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    background-size: 200% 100%;
+    animation: shimmerText 2s ease-in-out infinite;
+  }
+
+  .glitch {
+    position: relative;
+    animation: glitch 2s infinite;
+  }
+
+  .glitch::before,
+  .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .glitch::before {
+    animation: glitch-1 0.5s infinite;
+    color: #00ffff;
+    z-index: -1;
+  }
+
+  .glitch::after {
+    animation: glitch-2 0.5s infinite;
+    color: #ff00ff;
+    z-index: -2;
+  }
+
+  .magnetic {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .particle {
+    @apply absolute w-1 h-1 bg-gradient-to-r from-primary-blue to-primary-purple rounded-full animate-float opacity-70;
+  }
+
+  .ribbon {
+    @apply absolute top-4 right-4 bg-gradient-to-r from-primary-purple to-primary-indigo text-white px-4 py-1 rounded-full text-xs font-semibold shadow-lg transform rotate-12 hover:rotate-6 transition-transform duration-300;
   }
 }
 
