@@ -3,7 +3,7 @@ import { OpenAIRequest, OpenAIResponse, ToneType, MessageMetadata } from '../typ
 
 export class OpenAIService {
   private static instance: OpenAIService;
-  private openai: OpenAI;
+  private openai: OpenAI | null;
   private readonly model = 'gpt-4';
   private readonly maxTokens = 1000;
   private readonly temperature = 0.3;
