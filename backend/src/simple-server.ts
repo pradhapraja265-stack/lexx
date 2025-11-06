@@ -204,7 +204,7 @@ app.get('/api/sessions/:sessionId', (req, res) => {
     });
   }
 
-  res.json({
+  return res.json({
     success: true,
     data: { session },
   });
