@@ -223,7 +223,7 @@ app.delete('/api/sessions/:sessionId', (req, res) => {
     });
   }
 
-  res.status(204).send();
+  return res.status(204).send();
 });
 
 // Create new session
