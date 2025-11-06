@@ -258,7 +258,7 @@ app.get('/api/tones', (req, res) => {
     professional: 'Business-appropriate tone that is clear and concise',
   };
 
-  const response = supportedTones.map(tone => ({
+  const response = supportedTones.map((tone: string) => ({
     value: tone,
     label: tone.charAt(0).toUpperCase() + tone.slice(1),
     description: toneDescriptions[tone as keyof typeof toneDescriptions],
