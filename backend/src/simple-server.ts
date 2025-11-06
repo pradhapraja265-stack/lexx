@@ -119,7 +119,7 @@ app.post('/api/refine', async (req, res) => {
 
     try {
       // Process with AI
-      const aiResponse = await openaiService.refineText(text, tone);
+      const aiResponse = await openaiService.refineText(text, tone as any);
 
       // Add AI response
       const aiMessage = {
@@ -143,7 +143,7 @@ app.post('/api/refine', async (req, res) => {
         sessionId: session.id,
       };
 
-      res.json({
+      return res.json({
         success: true,
         data: response,
       });
@@ -157,7 +157,7 @@ app.post('/api/refine', async (req, res) => {
       const errorMessage = aiError instanceof Error ? aiError.message : 'AI service unavailable';
       const statusCode = errorMessage.includes('quota') ? 429 : 503;
 
-      res.status(statusCode).json({
+      return res.status(statusCode).json({
         success: false,
         error: errorMessage,
         code: 'AI_SERVICE_ERROR',
@@ -166,7 +166,7 @@ app.post('/api/refine', async (req, res) => {
 
   } catch (error) {
     console.error('Text refinement error:', error);
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       error: 'Failed to refine text',
       code: 'REFINE_FAILED',
