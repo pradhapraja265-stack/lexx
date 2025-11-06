@@ -71,6 +71,30 @@ Remember: Your role is to refine the given text to match the requested tone, not
   }> {
     const startTime = Date.now();
 
+    // Demo mode if OpenAI is not configured
+    if (!this.openai) {
+      const endTime = Date.now();
+      const processingTime = (endTime - startTime) / 1000;
+
+      const demoResponses = {
+        formal: `I would like to formally request your consideration of the following matter: ${text}`,
+        casual: `Hey, just wanted to chat about this: ${text}`,
+        friendly: `That's a great point! I think ${text.toLowerCase()} is really interesting!`,
+        professional: `This communication regards: ${text}`,
+      };
+
+      const metadata: MessageMetadata = {
+        model: 'demo-mode',
+        tokensUsed: 100,
+        processingTime,
+      };
+
+      return {
+        refinedText: demoResponses[tone] || text,
+        metadata,
+      };
+    }
+
     try {
       const messages = this.buildMessages(text, tone);
 
